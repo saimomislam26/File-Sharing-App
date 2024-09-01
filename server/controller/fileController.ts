@@ -48,3 +48,23 @@ module.exports.uploadFiles = async (req: Request, res: Response) => {
 
 }
 
+module.exports.getFiles = async(req:Request, res:Response) =>{
+    try {
+        const id = req.params.id
+        const file = await Files.findById(id)
+
+        if(!file){
+            return res.status(404).json({message:"File does not exist"})
+        }
+        const {fileName,format,sizeInBytes} = file
+
+        return res.status(200).json({
+            name: fileName,
+            sizeInBytes,
+            format
+        })
+    } catch (error) {
+        return res.status(500).json({message:"Server Error"})
+    }
+}
+
