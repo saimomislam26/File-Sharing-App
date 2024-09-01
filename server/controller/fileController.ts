@@ -34,7 +34,7 @@ module.exports.uploadFiles = async (req: Request, res: Response) => {
 
             res.status(200).json({
                 id: file._id,
-                downloadPageLink: `${process.env.API_BASE_ENDPOINT_CLIENT}/download/${file._id}`
+                downloadPageLink: `${process.env.API_BASE_ENDPOINT_CLIENT}/downloads/${file._id}`
             })
 
         } catch (error) {
@@ -52,7 +52,8 @@ module.exports.getFiles = async(req:Request, res:Response) =>{
     try {
         const id = req.params.id
         const file = await Files.findById(id)
-
+        console.log({file});
+        
         if(!file){
             return res.status(404).json({message:"File does not exist"})
         }
