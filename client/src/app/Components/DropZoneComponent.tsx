@@ -3,10 +3,11 @@ import React, { Dispatch, FunctionComponent, useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
 import folder from '@/app/images/folder.png'
 
-const DropZoneComponent: FunctionComponent<{ setFile: Dispatch<File | null> }> = ({ setFile }) => {
+const DropZoneComponent: FunctionComponent<{ setFile: Dispatch<File | null>, setUploadState: Dispatch<string> }> = ({ setFile, setUploadState }) => {
 
     const onDrop = useCallback((acceptedFiles: File[]) => {
         setFile(acceptedFiles[0])
+        setUploadState('Upload')
     }, [])
 
     const { getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject } = useDropzone({

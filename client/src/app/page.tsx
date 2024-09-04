@@ -6,6 +6,7 @@ import RenderFile from "./Components/RenderFile";
 import axios, { AxiosResponse } from "axios";
 import { UploadApiResponse } from "../../libs/types";
 import DownloadFile from "./Components/DownloadFile";
+import EmailForm from "./Components/EmailForm";
 
 
 axios.defaults.baseURL = "http://localhost:8000/"
@@ -45,7 +46,7 @@ export default function Home() {
     }
   }
 
-  const resetComponent =()=>{
+  const resetComponent = () => {
     setFile(null)
     setDownloadPageLink(null)
     setUploadState('Upload')
@@ -56,7 +57,7 @@ export default function Home() {
       <h1 className="my-4 text-3xl font-medium">Share Your file</h1>
       <div className="flex flex-col items-center justify-center bg-gray-800 shadow-xl w-96 rounded-xl text-white" >
         {/* DropZone */}
-        {!downloadPageLink && <DropZoneComponent setFile={setFile} />}
+        {!downloadPageLink && <DropZoneComponent setFile={setFile} setUploadState={setUploadState}/>}
         {/* render file */}
         {file && <RenderFile file={{
           format: file?.type.split("/")[1] || "",
@@ -70,11 +71,14 @@ export default function Home() {
           <button className="p-2 my-5 bg-gray-900 rounded-md w-44 focus:outline-none" onClick={handleUpload}>{uploadState}</button>
         }
 
+        {/* {id && <EmailForm id={id}/>} */}
+
         {
           downloadPageLink &&
           <div className="p-2 text-center">
 
             <DownloadFile downloadPageLink={downloadPageLink} />
+            {id && <EmailForm id={id} />}
             <button className="p-2 my-5 bg-gray-900 rounded-md w-44 focus:outline-none" onClick={resetComponent}>Upload New File</button>
           </div>
         }
